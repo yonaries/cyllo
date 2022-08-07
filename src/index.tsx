@@ -1,15 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import allReducers from "./controllers/redux/reducers/allReducers";
+import {
+  reHydrateStore,
+  saveToLocalStorageMiddleware,
+} from "./controllers/redux/middleware";
+
+const store = configureStore({
+  reducer: allReducers,
+  preloadedState: reHydrateStore(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(saveToLocalStorageMiddleware),
+});
+
+//Todo: understand what the 2 lines of code below does
+//? Infer the `RootState` and `AppDispatch` types from the store itself
+export type UserState = ReturnType<typeof store.getState>;
+// ?Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
