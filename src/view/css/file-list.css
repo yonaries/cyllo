@@ -1,0 +1,20 @@
+.collection-container .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+.collection-container .title .title-icon {
+    display: flex;
+    align-items: center;
+}
+
+.collection-container .title .title-icon img {
+    margin-right: 10px;
+}
+
+.collections-list {
+    padding: 0 2rem;
+}

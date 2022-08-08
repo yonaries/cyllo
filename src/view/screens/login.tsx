@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import "../css/login.css";
 import emailIcon from "../../assets/icons/email.svg";
 import passwordIcon from "../../assets/icons/key.svg";
 import { SignInWith } from "../../controllers/authentications";
 
-type Props = {};
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { UserState } from "../../controllers/redux/type";
+import ToastMessage from "../components/toast-message";
 
-const LoginScreen = (props: Props) => {
+interface Props { }
+
+const LoginScreen = ({ }: Props) => {
+  const navigate = useNavigate();
+  const userStatus = useSelector((state: UserState) => state.userStatus);
+
+  const [toast, setToast] = useState({ toastStatus: "", toastMessage: "" });
+
+  useEffect(() => {
+    if (userStatus.isLoggedIn && userStatus.userData) {
+      navigate("/dashboard");
+    }
+  }, [userStatus]);
+
   return (
     <div className="main-container">
+      <div className="toast">
+        {toast.toastStatus && (
+          <ToastMessage type={toast.toastStatus} message={toast.toastMessage} />
+        )}
+      </div>
       <div className="login-panel">
         <div className="signIn-with-others"></div>
-        <SignInWith />
+        <SignInWith setToast={setToast} {...toast} />
         <div className="divider">
           <hr />
           <div className="or">OR</div>

@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserState } from "../../..";
+import { saveToLocalStorageMiddleware } from "../middleware";
 
 interface user {
-  userData: any;
+  userData: string;
+  userName: string;
+  email: string;
   isLoggedIn: boolean;
 }
 
 const initialState: user = {
   userData: "",
+  userName: "",
+  email: "",
   isLoggedIn: false,
 };
 
@@ -22,11 +26,11 @@ const authSlice = createSlice({
     signedOut: (state) => {
       state.isLoggedIn = false;
       state.userData = "";
+      saveToLocalStorageMiddleware("");
     },
   },
 });
 
 export const { signedIn, signedOut } = authSlice.actions;
-export const authStatus = (state: UserState) => state.userStatus;
 const authReducer = authSlice.reducer;
 export default authReducer;

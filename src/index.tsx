@@ -12,16 +12,15 @@ import {
   saveToLocalStorageMiddleware,
 } from "./controllers/redux/middleware";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: allReducers,
   preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(saveToLocalStorageMiddleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      saveToLocalStorageMiddleware
+    ),
 });
 
-//Todo: understand what the 2 lines of code below does
-//? Infer the `RootState` and `AppDispatch` types from the store itself
-export type UserState = ReturnType<typeof store.getState>;
 // ?Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
