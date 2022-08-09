@@ -2,7 +2,7 @@
 export const saveToLocalStorageMiddleware = ({ getState }: any) => {
   return (next: any) => (action: any) => {
     const result = next(action);
-    localStorage.setItem("applicationState", JSON.stringify(getState()));
+    localStorage.setItem("applicationState", JSON.stringify(getState())); //saving to local storage
     return result;
   };
 };

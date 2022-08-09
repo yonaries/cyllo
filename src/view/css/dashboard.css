@@ -2,19 +2,24 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400&display=swap');
 
 :root {
-    --bottom-border: 1px solid rgba(235, 235, 235);
-    --selectedColor: rgba(187, 197, 192, 0.2);
+    --bottom-border: 1px solid transparent;
+    --bottom-border-light: 1px solid rgba(235, 235, 235);
+    --selectedColor: rgba(187, 197, 192, 0.3);
+    --light-theme: #FCFCFC;
+    --dark-blue-theme-main: #161D6F;
+    --light-blue-theme-main: #185ADB;
+    --light-blue-search-bar: #4A47A3;
+    --dark-blue-search-bar: #0A1931;
+    --slack-theme: #350B40;
 }
 
 body {
-    /* font-family: 'Montserrat', sans-serif; */
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 13px;
 }
 
 .main-container {
     display: flex;
-    /* justify-content: space-between; */
     width: 100vw;
     height: 100vh;
 }
@@ -22,7 +27,8 @@ body {
 .side-bar {
     flex: 1;
     height: 100%;
-    background-color: #FCFCFC;
+    background-color: var(--slack-theme);
+    color: white
 }
 
 .side-bar img {
@@ -94,20 +100,14 @@ body {
 .documents-list {
     flex: 1;
     height: 100%;
-    /* background-color: aqua; */
-}
-
-.document-view {
-    flex: 3;
-    height: 100%;
-    background-color: yellowgreen;
 }
 
 .search-bar {
     display: flex;
     align-items: center;
     height: 50px;
-    /* background-color: aquamarine; */
+    border-bottom: var(--bottom-border-light);
+    /* background-color: var(--light-blue-search-bar); */
 }
 
 .search {
@@ -118,7 +118,7 @@ body {
 
 .search-input {
     height: 35px;
-    width: 400px;
+    width: 500px;
     border-radius: 4px;
     outline: none;
     padding: 0 5px;

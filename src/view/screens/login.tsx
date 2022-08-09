@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../css/login.css";
 import emailIcon from "../../assets/icons/email.svg";
 import passwordIcon from "../../assets/icons/key.svg";
-import { SignInWith } from "../../controllers/authentications";
+import { SignInWith } from "../../controllers/oauth2";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";

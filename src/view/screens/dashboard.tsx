@@ -1,13 +1,19 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import AuthRoute from "../../controllers/authroute";
-import { resetSelections } from "../../controllers/redux/reducers/selectionSlice";
-import { windowClose } from "../../controllers/window-close-alert";
-import ListDocuments from "../components/document-list";
-import ViewDocument from "../components/document-view";
-import SideBar from "../components/sidebar";
 import "../css/dashboard.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { resetSelections } from "../../controllers/redux/reducers/selectionSlice";
+import { selectionState } from "../../controllers/redux/type";
+import { windowClose } from "../../controllers/window-close-alert";
+import AuthRoute from "../../controllers/authroute";
+
+import ListDocuments from "../components/document-list";
+import ViewDocument from "./document-view";
+import SearchBar from "../components/search-bar";
+import SideBar from "../components/sidebar";
+import RecentlyScreen from "./recently";
+import DraftScreen from "./draft";
+import CommunityScreen from "./community";
 
 const docsList = [
   {
@@ -44,33 +50,37 @@ windowClose();
 const Dashboard = (props: Props) => {
   const dispatch = useDispatch();
 
+  const selectedView = useSelector(
+    (state: selectionState) => state.selectedElements.selectedView
+  );
+
+  const showSelectedView = () => {
+    switch (selectedView) {
+      case "recent":
+        return <RecentlyScreen />;
+      case "draft":
+        return <DraftScreen />;
+      case "community":
+        return <CommunityScreen />;
+      case "file":
+        return (
+          <>
+            <ListDocuments docsList={docsList} />
+            <ViewDocument />
+          </>
+        );
+      default:
+        return <h1>No selectedView</h1>;
+    }
+  };
   return (
     <>
       <AuthRoute />
       <div className="main-container">
-        <div className="side-bar">
-          <SideBar />
-        </div>
+        <SideBar />
         <div className="main-body-container">
-          <div className="search-bar">
-            <div className="search">
-              <form className="search-form">
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Find by collections, doc, languages...."
-                />
-              </form>
-            </div>
-          </div>
-          <div className="body-container">
-            <div className="documents-list">
-              <ListDocuments docsList={docsList} />
-            </div>
-            <div className="document-view">
-              <ViewDocument />
-            </div>
-          </div>
+          <SearchBar />
+          <div className="body-container">{showSelectedView()}</div>
         </div>
       </div>
     </>

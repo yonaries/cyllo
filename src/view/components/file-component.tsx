@@ -1,4 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectFile,
+  selectView,
+} from "../../controllers/redux/reducers/selectionSlice";
+import { selectionState } from "../../controllers/redux/type";
 import "../css/file-component.css";
 
 type Props = {
@@ -8,18 +14,23 @@ type Props = {
 };
 
 const FileTile = ({ fileId, color, title }: Props) => {
-  const [selectedFileId, setselectedFileId] = useState("agva7a");
+  const dispatch = useDispatch();
+  const selectedFile = useSelector(
+    (state: selectionState) => state.selectedElements.selectedFile
+  );
 
-  function className() {
-    if (fileId === selectedFileId) {
-      return "collection selected";
-    }
-    return "collection";
+  function className(Id: string) {
+    return Id === selectedFile ? "collection selected" : "collection";
   }
 
   return (
     <div>
-      <div className={className()}>
+      <div
+        className={className(fileId)}
+        onClick={() => {
+          dispatch(selectFile(fileId));
+        }}
+      >
         <div className="indicator" style={{ backgroundColor: color }}></div>
         {title}
       </div>

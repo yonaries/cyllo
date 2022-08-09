@@ -14,10 +14,9 @@ interface docType {
 }
 
 const ListDocuments = ({ docsList }: Props) => {
-
   return docsList ? (
     <>
-      <div>
+      <div className="documents-list">
         <div className="filter">
           <p>Filter</p>
           <img src={arrowIcon} />

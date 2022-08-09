@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedFile: "",
-  selectedView: "",
+  selectedView: "recent",
   selectedDoc: "",
 };
 
@@ -12,7 +12,8 @@ const selectionSlice = createSlice({
   reducers: {
     selectFile: (state, action) => {
       state.selectedFile = action.payload;
-      state.selectedView = "";
+      state.selectedView = "file";
+      state.selectedDoc = "";
     },
     selectView: (state, action) => {
       state.selectedView = action.payload;
@@ -21,7 +22,7 @@ const selectionSlice = createSlice({
     },
     selectDoc: (state, action) => {
       state.selectedDoc = action.payload;
-      state.selectedView = "";
+      // state.selectedView = "";
     },
     resetSelections: (state) => {
       state.selectedDoc = "";

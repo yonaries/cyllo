@@ -3,18 +3,19 @@ import "../css/file-list.css";
 
 interface Props {
   files: any;
+  fileType: any;
 }
-type fileType = {
+interface fileProps {
   fileId: string;
   color: string;
   title: string;
-};
+  fileType: string;
+}
 
-export const ListFile = ({ files }: Props) => {
-
-  return (
-    files ? <div className="collections-list">
-      {files.map((file: fileType) => (
+export const ListFiles = ({ files }: Props) => {
+  return files ? (
+    <div className="collections-list">
+      {files.map((file: fileProps) => (
         <FileTile
           key={file.fileId}
           fileId={file.fileId}
@@ -22,8 +23,8 @@ export const ListFile = ({ files }: Props) => {
           title={file.title}
         />
       ))}
-    </div> : < div className="collections-list">console.log("nothing to show now")</div>
-  )
-}
-
-
+    </div>
+  ) : (
+    <div className="collections-list">console.log("nothing to show now")</div>
+  );
+};

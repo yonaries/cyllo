@@ -12,29 +12,24 @@ type Props = {
 };
 
 function DocumentTile({ docLang, docId, docTitle, docDescription }: Props) {
-  const selectedDoc = useSelector((state: selectionState) => state.selectedElements.selectedDoc)
   const dispatch = useDispatch();
-
-  const [selectedDocId, setselectedDocId] = useState<string>("");
+  const selectedDoc = useSelector(
+    (state: selectionState) => state.selectedElements.selectedDoc
+  );
 
   //? Reminders
   //todo: show programming language image depending on docLang
 
   function className(Id: string) {
-    if (Id === selectedDoc) {
-      return "doc-container selected";
-    }
-    return "doc-container";
+    return Id === selectedDoc ? "doc-container selected" : "doc-container";
   }
-
-  function changeSelectedDoc(Id: string) {
-    dispatch(selectDoc(Id))
-    console.log(`passedId: ${Id}, state:${selectedDoc}`);
-  };
 
   return (
     <>
-      <div className={className(docId)} onClick={() => changeSelectedDoc(docId)}>
+      <div
+        className={className(docId)}
+        onClick={() => dispatch(selectDoc(docId))}
+      >
         <div className="language-image">
           <img src={globIcon} />
         </div>
@@ -52,15 +47,3 @@ function DocumentTile({ docLang, docId, docTitle, docDescription }: Props) {
 }
 
 export default DocumentTile;
-
-
-  // const handleClick = (event: any, Id: string) => {
-  //   event.preventDefault()
-  //   // console.log(event.target);
-
-  //   const button: HTMLButtonElement = event.currentTarget;
-  //   console.log(button);
-  //   button.className = "doc-container selected"
-
-  //   // setselectedDocId(Id)
-  // };
