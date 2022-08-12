@@ -7,11 +7,19 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "@tiptap/extension-code": "^2.0.0-beta.28",
+    "@tiptap/extension-code-block-lowlight": "^2.0.0-beta.73",
+    "@tiptap/extension-heading": "^2.0.0-beta.29",
+    "@tiptap/extension-paragraph": "^2.0.0-beta.26",
+    "@tiptap/react": "^2.0.0-beta.114",
+    "@tiptap/starter-kit": "^2.0.0-beta.191",
+    "@tiptap/suggestion": "^2.0.0-beta.97",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "firebase": "^9.9.2",
+    "lowlight": "^2.7.0",
     "react": "^18.2.0",
     "react-contenteditable": "^3.3.6",
     "react-dom": "^18.2.0",
@@ -48,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.14"
+    "@types/jquery": "^3.5.14",
+    "sass": "^1.54.4"
   }
 }

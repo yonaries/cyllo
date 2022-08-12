@@ -1,0 +1,20 @@
+/* .Page {
+    background-color: rgb(216, 216, 216);
+} */
+
+.Page p {
+    color: black;
+}
+
+.code-file-name {
+    height: 50px;
+    background-color: red;
+}
+
+.code-container {
+    background-color: red;
+}
+
+.add-icon img {
+    cursor: pointer;
+}

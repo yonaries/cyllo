@@ -7,7 +7,7 @@ import folderAddIcon from "../../assets/icons/Folder-plus.svg";
 import arrowIcon from "../../assets/icons/Caret down.svg";
 import favIcon from "../../assets/icons/Bookmark.svg";
 
-export {
+export default {
   arrowIcon,
   arrowRightIcon,
   draftIcon,

@@ -2,8 +2,11 @@ import React from "react";
 import "../css/view-document.css";
 import devUser from "../../assets/icons/devuser.png";
 import DocViewButtons from "../components/doc-view-buttons";
+import EditablePage from "../components/text-editor/editable-page";
+import { bid } from "../components/text-editor/block-id";
 
 type Props = {};
+const docBlocks: any[] = [];
 
 function ViewDocument({}: Props) {
   return (
@@ -28,6 +31,7 @@ function ViewDocument({}: Props) {
           <DocViewButtons />
         </div>
       </div>
+      <EditablePage />
     </div>
   );
 }
