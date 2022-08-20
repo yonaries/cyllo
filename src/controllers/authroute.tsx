@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import React, { useEffect, useState } from "react";
-import { UserState } from "../controllers/redux/type";
+import { RootState } from "..";
 
 const AuthRoute: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  const userStatus = useSelector((state: UserState) => state.userStatus);
+  const userStatus = useSelector((state: RootState) => state.userStatus);
   // console.log(userStatus);
 
   useEffect(() => {

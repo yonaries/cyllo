@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../..";
 import globIcon from "../../assets/icons/Global.svg";
 import { selectDoc } from "../../controllers/redux/reducers/selectionSlice";
-import { selectionState } from "../../controllers/redux/type";
 
 type Props = {
   docId: string;
@@ -14,7 +14,7 @@ type Props = {
 function DocumentTile({ docLang, docId, docTitle, docDescription }: Props) {
   const dispatch = useDispatch();
   const selectedDoc = useSelector(
-    (state: selectionState) => state.selectedElements.selectedDoc
+    (state: RootState) => state.selectedElements.selectedDoc
   );
 
   //? Reminders

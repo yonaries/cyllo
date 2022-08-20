@@ -64,3 +64,7 @@ code {
 .hljs-strong {
     font-weight: 700;
 }
+
+.ProseMirror-focused {
+    border: none;
+}

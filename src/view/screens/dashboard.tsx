@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { resetSelections } from "../../controllers/redux/reducers/selectionSlice";
-import { selectionState } from "../../controllers/redux/type";
 import { windowClose } from "../../controllers/window-close-alert";
 import AuthRoute from "../../controllers/authroute";
 
@@ -14,6 +13,7 @@ import SideBar from "../components/sidebar";
 import RecentlyScreen from "./recently";
 import DraftScreen from "./draft";
 import CommunityScreen from "./community";
+import { RootState } from "../..";
 
 const docsList = [
   {
@@ -51,7 +51,7 @@ const Dashboard = (props: Props) => {
   const dispatch = useDispatch();
 
   const selectedView = useSelector(
-    (state: selectionState) => state.selectedElements.selectedView
+    (state: RootState) => state.selectedElements.selectedView
   );
 
   const showSelectedView = () => {

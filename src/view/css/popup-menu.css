@@ -1,0 +1,33 @@
+.main-popup-menu-container {
+    /* margin-top: -4.5rem; */
+    margin-left: 1rem;
+    z-index: 100;
+    /* display: none; */
+}
+
+.popup-menu-on {
+    display: block;
+}
+
+.popup-menu {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.popup-menu button {
+    padding: 0 10px;
+    text-align: start;
+    background-color: transparent;
+    border: none;
+    height: 25px;
+    cursor: pointer;
+}
+
+.popup-menu button:hover {
+    background-color: #00ffea60;
+    transition: 0.2s;
+}

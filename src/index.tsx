@@ -20,8 +20,7 @@ export const store = configureStore({
       saveToLocalStorageMiddleware
     ),
 });
-
-// ?Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 const root = ReactDOM.createRoot(

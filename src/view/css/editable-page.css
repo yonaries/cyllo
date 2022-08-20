@@ -1,6 +1,10 @@
-/* .Page {
-    background-color: rgb(216, 216, 216);
-} */
+.Page {
+    padding-top: 5px;
+    padding-bottom: 25px;
+    /* background-color: rgb(216, 216, 216); */
+    overflow-x: scroll;
+    /* min-height: 100px; */
+}
 
 .Page p {
     color: black;
@@ -18,3 +22,18 @@
 .add-icon img {
     cursor: pointer;
 }
+
+.ProseMirror {
+    z-index: 0;
+}
+
+.ProseMirror-focused {
+    outline: none;
+    z-index: 0;
+}
+
+/* @media screen and (max-width: 480px) {
+    .Page {
+        width: 100vw;
+    }
+} */

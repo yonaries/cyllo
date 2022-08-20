@@ -7,14 +7,14 @@ import { SignInWith } from "../../controllers/oauth2";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { UserState } from "../../controllers/redux/type";
+import { RootState } from "../../";
 import ToastMessage from "../components/toast-message";
 
 interface Props { }
 
 const LoginScreen = ({ }: Props) => {
   const navigate = useNavigate();
-  const userStatus = useSelector((state: UserState) => state.userStatus);
+  const userStatus = useSelector((state: RootState) => state.userStatus);
 
   const [toast, setToast] = useState({ toastStatus: "", toastMessage: "" });
 

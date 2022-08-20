@@ -1,8 +1,8 @@
 .document-view {
     flex: 3;
-    height: 100%;
+    min-height: 100%;
     padding: 0 3rem;
-    border-left: var(--bottom-border-light);
+    overflow: scroll;
 }
 
 .profile {
@@ -38,6 +38,10 @@
 .document-description {
     display: flex;
     flex-direction: column;
+}
+
+.doc-desc {
+    color: grey;
 }
 
 .buttons {

@@ -4,15 +4,15 @@ import globIcon from "../../assets/icons/Global.svg";
 import draftIcon from "../../assets/icons/File.svg";
 import arrowRightIcon from "../../assets/icons/Arrow right.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { selectionState } from "../../controllers/redux/type";
 import { selectView } from "../../controllers/redux/reducers/selectionSlice";
+import { RootState } from "../..";
 
 type Props = {};
 
-function Views({}: Props) {
+function Views({ }: Props) {
   const dispatch = useDispatch();
   const selectedView = useSelector(
-    (state: selectionState) => state.selectedElements.selectedView
+    (state: RootState) => state.selectedElements.selectedView
   );
 
   function className(view: string) {
@@ -20,7 +20,7 @@ function Views({}: Props) {
   }
   return (
     <div>
-      <div className="activities">
+      <div className="views">
         <div
           className={className("recent")}
           onClick={() => dispatch(selectView("recent"))}

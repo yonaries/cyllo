@@ -1,16 +1,15 @@
-import React from "react";
 import { SignOut } from "../../controllers/oauth2";
 
-import "../css/dashboard.css";
-import folderIcon from "../../assets/icons/Folder-user.svg";
-import folderAddIcon from "../../assets/icons/Folder-plus.svg";
-import arrowIcon from "../../assets/icons/Caret down.svg";
 import favIcon from "../../assets/icons/Bookmark.svg";
+import arrowIcon from "../../assets/icons/Caret down.svg";
+import folderAddIcon from "../../assets/icons/Folder-plus.svg";
+import folderIcon from "../../assets/icons/Folder-user.svg";
+import "../css/dashboard.css";
 
+import { useSelector } from "react-redux";
 import { ListFiles } from "./files-list";
 import Views from "./view";
-import { UserState } from "../../controllers/redux/type";
-import { useSelector } from "react-redux";
+import { RootState } from "../..";
 
 const files = [
   { fileId: "41sfsd", title: "firebase", color: "orange" },
@@ -26,7 +25,7 @@ const Favorites = [
 ];
 
 const SideBar = () => {
-  const userStatus = useSelector((state: UserState) => state.userStatus);
+  const userStatus = useSelector((state: RootState) => state.userStatus);
 
   return (
     <div className="side-bar">

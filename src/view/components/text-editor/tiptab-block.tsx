@@ -1,58 +1,55 @@
-import React, { useEffect, useState } from "react";
-import "../../css/code-block.css";
+import { useEffect, useState } from "react";
 import addIcon from "../../../assets/icons/Plus.svg";
+import "../../css/code-block.css";
 
+import { Editor, EditorContent } from "@tiptap/react";
 import { lowlight } from "lowlight/lib/all";
-import { EditorContent, Editor } from "@tiptap/react";
 
-import Paragraph from "@tiptap/extension-paragraph";
-import StarterKit from "@tiptap/starter-kit";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Placeholder from '@tiptap/extension-placeholder';
+import StarterKit from "@tiptap/starter-kit";
+import PopupMenu from "../popup-menu";
+import { useSelector } from "react-redux";
+import { RootState } from "../../..";
+import { bid } from "./block-id";
+
+const initialBlock = new Editor({
+  editable: false,
+  extensions: [
+    StarterKit,
+    CodeBlockLowlight.configure({
+      lowlight,
+    }),
+    Placeholder.configure({
+      placeholder: 'Write here...',
+    })
+  ],
+  content: `<p>Initial Block</p>`,
+});
 
 const TipTap = () => {
+  //states
+  const docStatus = useSelector((state: RootState) => state.docStatus);
+  const [editors, setEditors] = useState<Editor[]>([initialBlock]);
+  const [popupMenu, setPopupMenu] = useState<boolean>(false);
 
-  const [editor, setEditor] = useState<Editor[]>([]);
+  useEffect(() => {
+    if (docStatus.editMode) { editors.map((e) => { e.options.editable = true; }) }
+    else editors.map((e) => { e.options.editable = false; })
+  }, [docStatus])
 
-  const items = editor.map((e) => { return e.options.content })
-
-  const BlockEditor = new Editor({
-    extensions: [
-      StarterKit,
-      Paragraph.configure({
-        HTMLAttributes: {
-          class: 'paragraphs',
-        },
-      }),
-      CodeBlockLowlight.configure({
-        lowlight,
-        HTMLAttributes: {
-          class: 'code-block',
-        },
-      })],
-    content: `${items}`,
-  })
-
-  const textEditor = new Editor({
-    extensions: [
-      StarterKit,
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
-    ],
-    content: `<p></p>`,
-  });
-
-  console.log(editor);
-
-  function addBlock() {
-    console.log('clicked');
-    setEditor([...editor, textEditor]);
+  function popupMenuHandler() {
+    setPopupMenu(!popupMenu);
   }
 
   return (
     <>
-      <EditorContent editor={BlockEditor} />
-      <img style={{ cursor: "pointer" }} src={addIcon} onClick={() => addBlock()} />
+      {
+        editors && editors.map((e) => < EditorContent key={bid()} editor={e} />
+        )
+      }
+      {docStatus.editMode && <img style={{ cursor: "pointer" }} src={addIcon} onClick={() => popupMenuHandler()} />}
+      {popupMenu && <PopupMenu setPopupMenu={setPopupMenu} setEditors={setEditors} editors={editors} />}
     </>
   );
 };

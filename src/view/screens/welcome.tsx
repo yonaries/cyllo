@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { UserState } from "../../controllers/redux/type";
+import { RootState } from "../../";
 import AuthRoute from "../../controllers/authroute";
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const userStatus = useSelector((state: UserState) => state.userStatus);
+  const userStatus = useSelector((state: RootState) => state.userStatus);
   console.log(userStatus);
 
   useEffect(() => {
