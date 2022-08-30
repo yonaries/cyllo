@@ -19,8 +19,8 @@ router.post('/create', middleware.decodeToken, async (req, res) => {
             }
         }
         const result = await folderCollection.insertOne(collection)
-        return res.status(200)
+        return res.status(200).send(result)
     } catch (error) {
-
+        return res.status(400).send('Request Failed!')
     }
 })
