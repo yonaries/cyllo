@@ -2,16 +2,28 @@ import { createSlice } from "@reduxjs/toolkit";
 import { saveToLocalStorageMiddleware } from "../middleware";
 
 interface user {
-  userData: string;
+  user: string;
   userName: string;
   email: string;
+}
+
+interface IUser {
+  user: {
+    displayName: string,
+    email: string,
+    emailVerified: boolean,
+    picture: string
+  }
   isLoggedIn: boolean;
 }
 
-const initialState: user = {
-  userData: "",
-  userName: "",
-  email: "",
+const initialState: IUser = {
+  user: {
+    displayName: "",
+    email: "",
+    emailVerified: false,
+    picture: "",
+  },
   isLoggedIn: false,
 };
 
@@ -21,12 +33,11 @@ const authSlice = createSlice({
   reducers: {
     signedIn: (state, action) => {
       state.isLoggedIn = true;
-      state.userData = action.payload;
+      state.user = action.payload;
     },
     signedOut: (state) => {
-      state.isLoggedIn = false;
-      state.userData = "";
-      saveToLocalStorageMiddleware("");
+      state = initialState;
+      localStorage.setItem("applicationState", "");
     },
   },
 });

@@ -41,6 +41,7 @@ body {
 
 .side-bar .profile-bar {
     height: 50px;
+    margin: 0 5px;
     padding: 0 10px;
     display: flex;
     align-items: center;
@@ -49,11 +50,14 @@ body {
 }
 
 .profile-bar .avatar {
-    width: 30px;
-    height: 30px;
-    background-color: yellow;
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.profile-bar .avatar img {
+    width: 100%;
     border-radius: 50%;
-    margin-right: 10px;
 }
 
 .profile-bar .email {

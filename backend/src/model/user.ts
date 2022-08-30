@@ -1,10 +1,13 @@
-export type User = {
-    _id: string,
+import { UserCredential } from 'firebase/auth';
+import { ObjectId } from 'mongodb';
+
+export interface IUser {
+    _id: ObjectId,
     displayName: string,
-    email: string,
     password: string,
-    googleToken: string,
-    // favorites?: Array<FavoriteDocs>,
+    email: string,
+    emailVerified: boolean,
+    picture: string
 }
 
 interface FavoriteDocs {

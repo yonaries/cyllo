@@ -8,7 +8,7 @@ interface props {
 
 const initialState: props = {
   ownerId: "151515",
-  editMode: true,
+  editMode: false,
 };
 
 const docSlice = createSlice({

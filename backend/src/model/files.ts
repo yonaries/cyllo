@@ -1,6 +1,6 @@
-enum Visibility {
-    public,
-    private
+export enum Visibility {
+    private,
+    public
 }
 
 interface Owner {
@@ -8,26 +8,28 @@ interface Owner {
     email: string;
 }
 
-interface Group {
+interface User {
     _userId: string;
     email: string;
 }
 
 interface Permission {
     anyOneWithLink: boolean;
-    group: Group[];
+    group?: User[];
 }
 
-export type FileDocument = {
+export type IDocument = {
     _id: string;
     _collectionId: string;
     name: string;
     owner: Owner;
     visibility: Visibility;
     permittedTo: Permission;
+    docData: Object;
+    progLang: string;
 }
 
-export type FileCollection = {
+export type ICollection = {
     _id: string;
     name: string;
     owner: Owner;

@@ -1,37 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../css/toast-message.css";
+
 interface Props {
-  type: string;
-  message: string;
+  toastType: string;
+  toastMessage: string;
+  waitingFor?: any;
 }
 
-const ToastMessage = ({ type, message }: Props) => {
-  function toastColor() {
-    if (type === "error") {
-      return {
-        backgroundColor: "#EB1D36",
-        color: "white",
-        // animation: "5s showToast ease forwards;",
-      };
-    }
-    if (type === "success") {
-      return {
-        backgroundColor: "#71fa40",
-        // animation: "5s showToast ease forwards;",
-      };
-    }
-
-    return {
-      backgroundColor: "white",
-      // animation: "5s showToast ease forwards;",
-    };
+const Notify = ({ toastType, toastMessage, waitingFor }: Props) => {
+  if (toastType === 'error') {
+    return toast.error(toastMessage, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
-  return (
-    <div className="main-container">
-      <div className="toast" style={toastColor()}>
-        <p>{message}</p>
-      </div>
-    </div>
-  );
-};
-export default ToastMessage;
+  if (toastType === 'success') {
+    return toast.success(toastMessage, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+
+  return toast.promise(waitingFor, {
+    pending: toastMessage,
+    error: 'Request Failed 🤯'
+  }, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
+
+export default Notify;

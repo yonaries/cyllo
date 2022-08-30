@@ -1,4 +1,4 @@
-import { SignOut } from "../../controllers/oauth2";
+import { SignOut } from "./signOut-button";
 
 import favIcon from "../../assets/icons/Bookmark.svg";
 import arrowIcon from "../../assets/icons/Caret down.svg";
@@ -30,10 +30,12 @@ const SideBar = () => {
   return (
     <div className="side-bar">
       <div className="profile-bar">
-        <div className="avatar"></div>
+        <div className="avatar">
+          <img src={userStatus.user.picture} />
+        </div>
         <div className="username-email">
-          <div className="name">Yonathan Dejene</div>
-          <div className="email">yonatandejene001@gmail.com</div>
+          <div className="name">{userStatus.user.displayName}</div>
+          <div className="email">{userStatus.user.email}</div>
         </div>
       </div>
       <Views />

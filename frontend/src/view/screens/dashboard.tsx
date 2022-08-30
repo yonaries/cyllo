@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { resetSelections } from "../../controllers/redux/reducers/selectionSlice";
-import { windowClose } from "../../controllers/window-close-alert";
 import AuthRoute from "../../controllers/authroute";
 
 import ListDocuments from "../components/document-list";
@@ -44,8 +43,6 @@ const docsList = [
 ];
 
 type Props = {};
-
-windowClose();
 
 const Dashboard = (props: Props) => {
   const dispatch = useDispatch();

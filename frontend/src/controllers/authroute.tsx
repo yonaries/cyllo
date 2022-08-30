@@ -11,12 +11,12 @@ const AuthRoute: React.FC = () => {
   // console.log(userStatus);
 
   useEffect(() => {
-    if (userStatus.isLoggedIn && userStatus.userData) {
+    if (userStatus.isLoggedIn && userStatus.user) {
       setLoading(false);
       navigate("/dashboard");
     } else {
       setLoading(false);
-      navigate("/login");
+      navigate("/signin");
     }
   }, [userStatus]);
 

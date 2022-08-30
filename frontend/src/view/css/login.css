@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+
 :root {
   --Montserrat: "Montserrat", sans-serif;
 }
+
 body {
   overflow: hidden;
 }
+
 .main-container {
   display: flex;
   justify-content: center;
@@ -13,22 +16,29 @@ body {
   height: 100vh;
   /* background-color: blueviolet; */
 }
+
 .login-panel {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 350px;
-  height: 300px;
+  min-height: 300px;
   padding: 20px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   background-color: white;
 }
+
+.login-panel a {
+  color: orangered;
+}
+
 .signIn-google img {
   width: 22px;
   margin-right: 5px;
 }
+
 .signIn-google {
   width: 100%;
   height: 40px;
@@ -38,22 +48,27 @@ body {
   justify-content: center;
   background-color: white;
   border: none;
-  /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
   font-size: 17px;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .signIn-google:hover {
   background-color: rgba(255, 68, 0, 0.8);
   color: white;
   transition: 0.2s;
 }
+
 .signIn-google:active {
   transform: scale(0.9);
 }
+
 .Inputs {
   width: 100%;
 }
+
 .input {
   display: flex;
   padding: 5px;
@@ -62,10 +77,12 @@ body {
   background-color: rgba(128, 128, 128, 0.15);
   border-radius: 5px;
 }
+
 .input img {
   width: 17px;
   margin: 0 5px;
 }
+
 .input input {
   flex: 1;
   height: 30px;
@@ -73,20 +90,24 @@ body {
   border: none;
   outline: none;
 }
+
 .divider {
   width: 80%;
   display: flex;
   justify-content: center;
   align-self: center;
 }
+
 hr {
   flex: 1;
   height: 0;
   opacity: 0.1;
 }
+
 .or {
   padding: 0 10px;
 }
+
 .signIn-btn {
   width: 100%;
   height: 40px;
@@ -102,6 +123,7 @@ hr {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .signIn-btn:hover {
   background-color: rgba(255, 68, 0, 0.7);
   transition: 0.2s;

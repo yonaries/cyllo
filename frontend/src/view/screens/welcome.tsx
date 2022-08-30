@@ -10,7 +10,7 @@ const Welcome = () => {
   console.log(userStatus);
 
   useEffect(() => {
-    if (userStatus.isLoggedIn && userStatus.userData) {
+    if (userStatus.isLoggedIn && userStatus.user) {
       navigate("/dashboard");
     }
   }, [userStatus]);
