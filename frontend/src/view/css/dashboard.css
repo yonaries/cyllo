@@ -32,7 +32,7 @@ body {
     top: 0;
     flex: 1;
     height: 100%;
-    /* color: white */
+    /* max-width: 270px; */
 }
 
 .side-bar img {
@@ -94,16 +94,16 @@ body {
 .main-body-container {
     flex: 4;
     height: 100%;
-    /* overflow: auto; */
+    overflow: hidden;
 }
 
 .body-container {
     display: flex;
-    min-height: 90%;
+    height: 90%;
     margin-right: 1rem;
     background-color: white;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .search-bar {

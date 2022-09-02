@@ -1,9 +1,7 @@
 .Page {
     padding-top: 5px;
     padding-bottom: 25px;
-    /* background-color: rgb(216, 216, 216); */
     overflow-x: scroll;
-    /* min-height: 100px; */
 }
 
 .Page p {

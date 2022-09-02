@@ -40,6 +40,25 @@ const docsList = [
     docDescription: "POST request to stripe backend",
     docLang: "React",
   },
+  {
+    docId: "ac4642",
+    docTitle: "Smooth Scroll",
+    docDescription: "API Routing using express.js",
+    docLang: "JavaScript",
+  },
+  {
+    docId: "45sdc2",
+    docTitle: "Resizable React Component",
+    docDescription:
+      "a div that can be resized by dragging the edges horizontally",
+    docLang: "React",
+  },
+  {
+    docId: "4126",
+    docTitle: "POST Request to API",
+    docDescription: "POST request to stripe backend",
+    docLang: "React",
+  },
 ];
 
 type Props = {};

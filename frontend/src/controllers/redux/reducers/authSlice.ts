@@ -36,7 +36,8 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     signedOut: (state) => {
-      state = initialState;
+      state.isLoggedIn = initialState.isLoggedIn;
+      state.user = initialState.user
       localStorage.setItem("applicationState", "");
     },
   },

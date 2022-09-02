@@ -1,9 +1,8 @@
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Heading from "@tiptap/extension-heading";
 import Placeholder from "@tiptap/extension-placeholder";
-import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { lowlight } from "lowlight/lib/all";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../..";
 import devUser from "../../assets/icons/devuser.png";
@@ -19,27 +18,21 @@ function ViewDocument({ }: Props) {
   const headTitle = useEditor({
     extensions: [
       StarterKit,
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
+      Heading.configure({ levels: [2] }),
       Placeholder.configure({
-        placeholder: 'Write here...',
+        placeholder: 'Title',
       })
     ],
-    content: `<h2>Document Title</h2>`,
+    content: `<h2></h2>`
   });
 
   const docDescBlock = useEditor({
     extensions: [
       StarterKit,
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
       Placeholder.configure({
-        placeholder: 'Write here...',
+        placeholder: 'Description',
       })
     ],
-    content: `<p>A Div that can be resized by dragging the edges horizontally</p>`,
   });
 
   useEffect(() => {

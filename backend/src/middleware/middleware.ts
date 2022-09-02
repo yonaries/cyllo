@@ -15,11 +15,11 @@ async function decodeFirebaseToken(req: any, res: any, next: any) {
         }
 
         req.body.user = user;
-        console.log(decodedToken);
+        console.log(token);
         next();
 
     } catch (error) {
-        return res.status(400).send({ response: { error: `Firebase Error` } });
+        return res.status(400).send({ response: { error: `Firebase Error ${error}` } });
     }
 }
 

@@ -13,6 +13,13 @@ interface docType {
   docLang: string;
 }
 
+const FilterList = () => {
+  return <div className="filter-menu-container">
+    <div className="filter-item">All</div>
+    <div className="filter-item">Language</div>
+  </div>
+}
+
 const ListDocuments = ({ docsList }: Props) => {
   return docsList ? (
     <>

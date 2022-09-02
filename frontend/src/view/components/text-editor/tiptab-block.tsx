@@ -3,28 +3,22 @@ import addIcon from "../../../assets/icons/Plus.svg";
 import "../../css/code-block.css";
 
 import { Editor, EditorContent } from "@tiptap/react";
-import { lowlight } from "lowlight/lib/all";
 
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from "@tiptap/starter-kit";
-import PopupMenu from "../popup-menu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../..";
+import PopupMenu from "../popup-menu";
 import { bid } from "./block-id";
 
 const initialBlock = new Editor({
   editable: false,
   extensions: [
     StarterKit,
-    CodeBlockLowlight.configure({
-      lowlight,
-    }),
     Placeholder.configure({
       placeholder: 'Write here...',
     })
   ],
-  content: `<p>Initial Block</p>`,
 });
 
 const TipTap = () => {
@@ -34,9 +28,10 @@ const TipTap = () => {
   const [popupMenu, setPopupMenu] = useState<boolean>(false);
 
   useEffect(() => {
+    { editors && editors.map((e) => console.log(e.getJSON())); }
     if (docStatus.editMode) { editors.map((e) => { e.options.editable = true; }) }
     else editors.map((e) => { e.options.editable = false; })
-  }, [docStatus])
+  }, [docStatus, editors])
 
   function popupMenuHandler() {
     setPopupMenu(!popupMenu);

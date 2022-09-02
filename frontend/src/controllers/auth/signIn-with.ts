@@ -22,6 +22,7 @@ export class SignInWith {
             const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
             const token = await userCredential.user.getIdToken();
+            console.log(token);
             const result = await authUserRequest(token, provider.providerId);
             return result;
         } catch (error) {
@@ -41,6 +42,7 @@ export class SignInWith {
                 password
             );
             const token = await userCredential.user.getIdToken();
+            console.log(token);
             const result = await authUserRequest(token, "cyllo");
             return result;
         } catch (error: any) {

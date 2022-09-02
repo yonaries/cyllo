@@ -1,16 +1,42 @@
 .collection {
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    padding: 2px 10px;
+    padding: 2px 5px;
     margin: 5px 0;
     border-radius: 3px;
     cursor: pointer;
+    overflow-wrap: normal;
+    /* background-color: blue; */
+}
+
+.colMenuBtn {
+    opacity: 0;
+    width: 20px;
+}
+
+.collection:hover .colMenuBtn {
+    opacity: 1;
+}
+
+.collection .selected:hover {
+    cursor: cell;
 }
 
 .collection .indicator {
     width: 5px;
     height: 5px;
     margin-right: 10px;
-    background-color: blue;
+    /* background-color: blue; */
     border-radius: 50%;
+}
+
+.collection .ProseMirror p {
+    margin: 0;
+    width: 120px;
+    /* background-color: brown; */
+}
+
+.collection .ProseMirror-focused p {
+    cursor: text;
 }

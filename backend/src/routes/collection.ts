@@ -24,3 +24,5 @@ router.post('/create', middleware.decodeToken, async (req, res) => {
         return res.status(400).send('Request Failed!')
     }
 })
+
+export { router as collectionRouter };

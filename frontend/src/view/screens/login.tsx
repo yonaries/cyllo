@@ -3,13 +3,13 @@ import { FormEvent, useEffect, useState } from "react";
 import googleLogo from "../../assets/logos/google.png";
 import emailIcon from "../../assets/icons/email.svg";
 import passwordIcon from "../../assets/icons/key.svg";
-import { SignInWith } from "../components/signOut-button";
 import "../css/login.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../";
 import { signedIn } from "../../controllers/redux/reducers/authSlice";
+import { SignInWith } from "../../controllers/auth/signIn-with";
 import Notify from "../components/toast-message";
 
 interface Props { }

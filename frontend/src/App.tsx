@@ -8,6 +8,8 @@ import Dashboard from "./view/screens/dashboard";
 import { ToastContainer } from 'react-toastify';
 import Notify from "./view/components/toast-message";
 import SignupScreen from "./view/screens/signup";
+import DeleteModal from "./view/components/delete-deactive-modal";
+import Modal from "./view/components/modal";
 
 
 const App = () => {
@@ -29,6 +31,7 @@ const App = () => {
         <Route path="/signin" element={<LoginScreen />} />
         <Route path="/signup" element={<SignupScreen />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/delete" element={<DeleteModal />} />
       </Routes>
     </div>
   );

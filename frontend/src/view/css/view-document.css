@@ -2,7 +2,8 @@
     flex: 3;
     min-height: 100%;
     padding: 0 3rem;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .profile {
@@ -12,6 +13,7 @@
 
 .profile-docDesc {
     flex: 1;
+    overflow-y: hidden;
 }
 
 .profile-avatar {
@@ -38,6 +40,7 @@
 .document-description {
     display: flex;
     flex-direction: column;
+    overflow-wrap: normal;
 }
 
 .doc-desc {
@@ -68,4 +71,21 @@
 
 .profile-button-docDesc {
     display: flex;
+}
+
+.ProseMirror p.is-empty::before,
+.ProseMirror h2.is-empty::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #adb5bd;
+    pointer-events: none;
+    height: 0;
+}
+
+.ProseMirror code.is-empty::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #adb5bd;
+    pointer-events: none;
+    height: 0;
 }

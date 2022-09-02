@@ -1,24 +1,25 @@
-.documents-list {
-    flex: 1;
-    /* border-right: var(--bottom-border-light); */
-}
-
 .collection-container {
-    padding: 1rem 0;
     border-bottom: var(--bottom-border);
     background-color: white;
     border-radius: 10px;
     margin: 0 1rem;
     margin-bottom: 10px;
-    overflow: scroll;
+    overflow: auto;
+    height: 170px;
+    padding-bottom: 1rem;
 }
 
 .collection-container .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 5px 10px;
     font-weight: 600;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding-top: 1rem;
+    z-index: 10;
 }
 
 .collection-container .title .title-icon {
@@ -32,4 +33,6 @@
 
 .collections-list {
     padding: 0 2rem;
+    overflow: scroll;
+    /* margin-top: 25px; */
 }

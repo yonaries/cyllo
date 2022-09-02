@@ -1,3 +1,14 @@
+.documents-list {
+    flex: 1;
+    overflow: scroll;
+    scrollbar-color: white;
+    scrollbar-width: none;
+}
+
+.documents-list::-webkit-scrollbar {
+    display: none;
+}
+
 .doc-container {
     display: flex;
     margin: 10px;
@@ -29,6 +40,7 @@
     height: 30px;
     margin-top: 1rem;
     padding-left: 17px;
+    cursor: pointer;
 }
 
 .filter img {
