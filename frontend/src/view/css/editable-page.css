@@ -2,6 +2,7 @@
     padding-top: 5px;
     padding-bottom: 25px;
     overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .Page p {

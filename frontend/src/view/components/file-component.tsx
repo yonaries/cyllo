@@ -4,49 +4,86 @@ import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../..";
+import { Extension } from "@tiptap/core";
 import {
   selectFile
 } from "../../controllers/redux/reducers/selectionSlice";
 import "../css/file-component.css";
-import menuIcon from "../../assets/icons/menu.svg";
+import editIcon from "../../assets/icons/editIcon_black.svg";
+import saveIcon from "../../assets/icons/Save.svg";
+import deleteIcon from "../../assets/icons/Subtract.svg";
+import DeleteModal from "../../tailwind/delete-deactive-modal";
 
 
 type Props = {
+  files: [];
   fileId: string;
   color: string;
   title: string;
+  index: number;
 };
 
-const FileTile = ({ fileId, color, title }: Props) => {
-  const [editMode, setEditMode] = useState<boolean>(false);
+const FileTile = ({ files, fileId, color, title, index }: Props) => {
+  const [isDeleteOn, setIsDeleteOn] = useState<boolean>(false);
+  const [elem, setElem] = useState<HTMLElement>();
+
   const dispatch = useDispatch();
   const selectedFile = useSelector(
     (state: RootState) => state.selectedElements.selectedFile
   );
 
+  //set class name for selected file
   function className(Id: string) {
     return Id === selectedFile ? "collection selected" : "collection";
   }
 
+  //? Text Editor
+  const DisableEnter = Extension.create({
+    addKeyboardShortcuts() {
+      return {
+        Enter: () => true,
+      };
+    },
+  });
+
   const textBlock = useEditor({
+    editable: false,
     extensions: [
+      DisableEnter,
       StarterKit,
       Placeholder.configure({
-        placeholder: "Write here...",
+        placeholder: "folder name",
       }),
     ],
-    injectCSS: false,
+    editorProps: {
+      handleKeyDown(view, event) {
+        console.log(event.key);
+        if (event.key === 'Enter') {
+          textBlock?.setEditable(false);
+        }
+      },
+    },
+    autofocus: true,
     content: `<p>${title ? title : 'untitled'}</p>`,
   });
 
-  useEffect(() => {
-    if (fileId === selectedFile) { textBlock?.setEditable(true) }
-    else { textBlock?.setEditable(false) }
-  }, [fileId, selectedFile])
+  //select the element to be removed
+  function readyCollection(e: any) {
+    const coll = e.target.parentElement.parentElement;
+    setElem(coll);
+    setIsDeleteOn(true);
+  }
 
+  //delete the selected element
+  function deleteCollection() {
+    files.splice(index, 1);
+    console.log(files);
+    elem?.remove()
+  }
 
   return (
-    <div>
+    <div onBlur={() => textBlock?.setEditable(false)} >
+      {isDeleteOn && <DeleteModal onDelete={deleteCollection} setIsDeleteOn={setIsDeleteOn} />}
       <div
         className={className(fileId)}
         onClick={() => {
@@ -55,7 +92,13 @@ const FileTile = ({ fileId, color, title }: Props) => {
       >
         <div className="indicator" style={{ backgroundColor: color }}></div>
         <EditorContent editor={textBlock} />
-        <img className="colMenuBtn" src={menuIcon} />
+        <div className="action-buttons">
+          <div className="colMenuBtn" onClick={() => textBlock?.setEditable(!textBlock.isEditable)} >
+            {textBlock?.isEditable ? <img src={saveIcon} />
+              : <img src={editIcon} />}
+          </div>
+          <img className="colMenuBtn" src={deleteIcon} onClick={readyCollection} />
+        </div>
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ const textBlock = new Editor({
       placeholder: "Write here...",
     }),
   ],
-  content: `<p>paragraph</p>`,
 });
 
 const CodeCellBlock = new Editor({

@@ -34,7 +34,7 @@ router.get("/signin", middleware.decodeToken, async (req, res) => {
         await client.close();
 
         return res
-            .cookie("x-auth-token", req.headers.authorization)
+            .header("token", req.headers.authorization)
             .send(user!.data);
 
     } catch (error) {

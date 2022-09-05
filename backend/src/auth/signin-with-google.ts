@@ -1,6 +1,5 @@
 import { client, usersCollection } from "../database/database-config";
 import { IUser } from "../model/user";
-import { generateId } from "../services/generateId";
 const bcrypt = require('bcrypt')
 
 
@@ -9,8 +8,6 @@ export const signInWithGoogle = async (user: IUser) => {
 
     const userExist = await usersCollection.findOne({ email: user.email });
     if (!userExist) {
-        const salt = await bcrypt.genSalt(parseInt(`${process.env.BCRYPT_SALT}`));
-        if (user.password) user.password = await bcrypt.hash(user.password, salt);
 
         try {
             await usersCollection.insertOne(user);

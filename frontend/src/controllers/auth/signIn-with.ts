@@ -1,18 +1,13 @@
 import "../../view/css/login.css";
-import { initializeApp } from "firebase/app";
 import {
-    getAuth,
     GoogleAuthProvider,
     signInWithEmailAndPassword,
-    signInWithPopup,
+    signInWithPopup
 } from "firebase/auth";
-import firebaseConfig from "../../config/firebaseConfig";
-import Notify from "../../view/components/toast-message";
+import { auth } from './../../config/firebaseConfig';
 import { authUserRequest } from "../api/signIn-request";
 import { errorToast } from "./error-toasts";
-
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
+import Notify from "../../view/components/toast-message";
 
 export class SignInWith {
     constructor() { }
@@ -22,7 +17,6 @@ export class SignInWith {
             const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
             const token = await userCredential.user.getIdToken();
-            console.log(token);
             const result = await authUserRequest(token, provider.providerId);
             return result;
         } catch (error) {
@@ -42,7 +36,6 @@ export class SignInWith {
                 password
             );
             const token = await userCredential.user.getIdToken();
-            console.log(token);
             const result = await authUserRequest(token, "cyllo");
             return result;
         } catch (error: any) {

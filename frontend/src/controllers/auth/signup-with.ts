@@ -1,11 +1,8 @@
-import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import firebaseConfig from "../../config/firebaseConfig";
+import { auth } from "../../config/firebaseConfig";
 import Notify from "../../view/components/toast-message";
 import { signUpRequest } from "../api/signup-request";
 
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
 
 export async function SignUpWithEmail(email: string, password: string, name: string) {
     try {

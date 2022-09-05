@@ -15,7 +15,6 @@ async function decodeFirebaseToken(req: any, res: any, next: any) {
         }
 
         req.body.user = user;
-        console.log(token);
         next();
 
     } catch (error) {

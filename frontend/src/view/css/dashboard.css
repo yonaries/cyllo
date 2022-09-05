@@ -4,7 +4,7 @@
 :root {
     --bottom-border: 1px solid transparent;
     --bottom-border-light: 1px solid rgba(235, 235, 235);
-    --selectedColor: rgba(187, 197, 192, 0.3);
+    --selectedColor: rgba(187, 197, 192, 0.7);
     --light-theme: #FCFCFC;
     --dark-blue-theme-main: #161D6F;
     --light-blue-theme-main: #185ADB;
@@ -17,7 +17,8 @@
 body {
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 13px;
-    background-color: var(--light-cyan-theme)
+    background-color: #dddddd;
+    /* color: aquamarine; */
 }
 
 .main-container {
@@ -32,7 +33,6 @@ body {
     top: 0;
     flex: 1;
     height: 100%;
-    /* max-width: 270px; */
 }
 
 .side-bar img {
@@ -86,7 +86,7 @@ body {
 }
 
 .selected {
-    background-color: #00ffea91;
+    background-color: rgba(0, 255, 255, 0.2);
     font-weight: bold;
     transition: 0.2s;
 }
@@ -106,19 +106,17 @@ body {
     overflow: auto;
 }
 
-.search-bar {
+.search-bar-container {
     position: sticky;
     top: 0;
     display: flex;
-    width: 100%;
     align-items: center;
     height: 50px;
     z-index: 5;
-    background-color: var(--light-cyan-theme);
     /* border-bottom: var(--bottom-border-light); */
 }
 
-.search {
+.search-bar {
     display: flex;
     align-items: center;
     /* padding: 0 1rem; */
@@ -126,12 +124,13 @@ body {
 
 .search-input {
     height: 35px;
-    width: 800px;
+    width: 65vw;
     border-radius: 5px;
     outline: none;
     padding: 0 10px;
     border: none;
     background-color: white;
+    color: rgb(197, 197, 197);
 }
 
 @media screen and (max-width: 480px) {

@@ -28,13 +28,18 @@ const TipTap = () => {
   const [popupMenu, setPopupMenu] = useState<boolean>(false);
 
   useEffect(() => {
-    { editors && editors.map((e) => console.log(e.getJSON())); }
+    // { editors && editors.map((e) => e.chain().focus().setColor('#958DF1')); }
     if (docStatus.editMode) { editors.map((e) => { e.options.editable = true; }) }
     else editors.map((e) => { e.options.editable = false; })
   }, [docStatus, editors])
 
   function popupMenuHandler() {
     setPopupMenu(!popupMenu);
+  }
+  function onBlurHandler() {
+    setTimeout(() => {
+      setPopupMenu(false);
+    }, 1000);
   }
 
   return (
@@ -44,7 +49,7 @@ const TipTap = () => {
         )
       }
       {docStatus.editMode && <img style={{ cursor: "pointer" }} src={addIcon} onClick={() => popupMenuHandler()} />}
-      {popupMenu && <PopupMenu setPopupMenu={setPopupMenu} setEditors={setEditors} editors={editors} />}
+      {popupMenu && <div tabIndex={0} style={{ width: "max-content" }} onMouseLeave={onBlurHandler}><PopupMenu setPopupMenu={setPopupMenu} setEditors={setEditors} editors={editors} /></div>}
     </>
   );
 };

@@ -8,39 +8,44 @@ import "../css/login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../";
-import { signedIn } from "../../controllers/redux/reducers/authSlice";
 import { SignInWith } from "../../controllers/auth/signIn-with";
 import Notify from "../components/toast-message";
+import { useAuth } from "../../context/AuthContext";
 
 interface Props { }
 
 const LoginScreen = ({ }: Props) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userStatus = useSelector((state: RootState) => state.userStatus);
   const [email, setEmail] = useState('')
-  const [pss, setPss] = useState('');
+  const [password, setPassword] = useState('');
+  const { currentUser } = useAuth();
 
-  useEffect(() => {
-    if (userStatus.isLoggedIn && userStatus.user) {
-      navigate("/dashboard");
-    }
-  }, [userStatus]);
+  if (currentUser) {
+    navigate('/dashboard', { replace: true });
+    Notify({
+      toastMessage: `Authenticated as ${currentUser.email}`
+    });
+  }
 
   async function signinHandler(event: FormEvent, provider: string) {
     event.preventDefault();
-    let promise;
 
-    if (provider == 'google') promise = SignInWith.Google()
-    if (provider == 'cyllo') promise = SignInWith.Email(email, pss)
+    try {
+      let promise;
+      if (provider == 'google') promise = SignInWith.Google()
+      if (provider == 'cyllo') promise = SignInWith.Email(email, password)
 
-    await Notify({
-      toastMessage: "Signing in...",
-      toastType: "wait",
-      waitingFor: promise,
-    });
-    promise?.then((result) => dispatch(signedIn(result)))
+      await Notify({
+        toastMessage: "Authenticating...",
+        toastType: "wait",
+        waitingFor: promise,
+      });
+
+    } catch (error) {
+      console.log(`At login page: ${error}`);
+    }
   }
+
   return (
     <div className="main-container">
       <div className="login-panel">
@@ -63,7 +68,7 @@ const LoginScreen = ({ }: Props) => {
               </div>
               <div className="input">
                 <img src={passwordIcon} alt="" />
-                <input type="password" value={pss} onChange={(e) => setPss(e.target.value)} placeholder="Password" id="emailInput" />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" id="passwordInput" />
               </div>
             </div>
           </div>

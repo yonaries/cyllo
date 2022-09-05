@@ -1,18 +1,23 @@
 import axios from "axios";
+import { auth } from '../../config/firebaseConfig';
 
-export async function authUserRequest(token: string, provider: string) {
+
+export async function getUserCollections() {
+    const user = auth.currentUser;
+    if (!user) { console.log(`No Signed in user`); return; };
+    const token = await user.getIdToken();
+
     try {
+
         const result = await axios({
             method: "get",
-            url: "http://localhost:5000/api/user/signin",
+            url: `http://localhost:5000/api/collection`,
             headers: {
                 "Content-Type": "application/json",
                 authorization: token,
-                provider: provider,
-            },
+            }
         });
-        const serverToken = result.headers.token;
-        window.localStorage.setItem('x-auth-token', serverToken);
+
         return result.data;
     } catch (error) {
         throw new Error(`From server: ${error}`);

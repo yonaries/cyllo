@@ -23,12 +23,6 @@ const SignupScreen = ({ }: Props) => {
     const [pss, setPss] = useState('');
     const [name, setName] = useState('');
 
-    useEffect(() => {
-        if (userStatus.isLoggedIn && userStatus.user) {
-            navigate("/dashboard");
-        }
-    }, [userStatus]);
-
     async function submitHandler(event: FormEvent) {
         event.preventDefault();
         const promise = SignUpWithEmail(email, pss, name);
@@ -38,10 +32,7 @@ const SignupScreen = ({ }: Props) => {
             toastType: "wait",
             waitingFor: promise,
         });
-        promise?.then((result) => {
-            console.log(result);
-            dispatch(signedIn(result.response.data))
-        })
+        navigate('/', { replace: true })
     }
     return (
         <div className="main-container">

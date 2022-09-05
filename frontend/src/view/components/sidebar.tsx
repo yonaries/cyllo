@@ -13,10 +13,13 @@ import Views from "./view";
 import { RootState } from "../..";
 import { useEffect, useState } from "react";
 import { selectFile } from "../../controllers/redux/reducers/selectionSlice";
+import { createCollectionRequest } from "../../controllers/api/create-collection";
+import Notify from "./toast-message";
+import { useAuth } from "../../context/AuthContext";
+import { User } from "firebase/auth";
 
 const SideBar = () => {
   const dispatch = useDispatch();
-  const userStatus = useSelector((state: RootState) => state.userStatus);
   const [files, setFiles] = useState([
     { fileId: "41sssd", title: "firebase", color: "orange" },
     { fileId: "agha7a", title: "react", color: "blue" },
@@ -24,18 +27,19 @@ const SideBar = () => {
     { fileId: "51avid", title: "nodejs", color: "green" },
   ]);
 
-  const Favorites = [
-    { fileId: "adv15a", title: "animated container", color: "orange" },
-    { fileId: "aca64a", title: "api routing", color: "blue" },
-    { fileId: "a65fhn", title: "fetching data", color: "red" },
-    { fileId: "0yj5", title: "posting data", color: "green" },
-  ];
-
   const newCollection = { fileId: "03fyj5", title: "untitled", color: "orange" }
-  useEffect(() => {
-    console.log(files);
-    console.log("refreshed");
-  }, [files]);
+  async function addFolder() {
+
+    try {
+      setFiles([...files, newCollection]); dispatch(selectFile(newCollection.fileId))
+      await createCollectionRequest('untitled');
+      Notify({ toastType: "success", toastMessage: 'New Collection Created' })
+
+    } catch (error) {
+      Notify({ toastType: 'error', toastMessage: 'Collection Creation Failed' })
+    }
+  }
+  const { currentUser } = useAuth();
 
   return (
     <div className="side-bar">
@@ -44,8 +48,8 @@ const SideBar = () => {
           <img src={devAvatar} />
         </div>
         <div className="username-email">
-          <div className="name">{userStatus.user.displayName}</div>
-          <div className="email">{userStatus.user.email}</div>
+          <div className="name">{currentUser?.displayName}</div>
+          <div className="email">{currentUser?.email}</div>
         </div>
       </div>
       <Views />
@@ -58,10 +62,10 @@ const SideBar = () => {
           <img
             src={folderAddIcon}
             style={{ cursor: "pointer" }}
-            onClick={() => { setFiles([...files, newCollection]); dispatch(selectFile(newCollection.fileId)) }}
+            onClick={addFolder}
           />
         </div>
-        {files && <ListFiles files={files} fileType={"collection"} />}
+        <ListFiles fileType={"collection"} />
       </div>
       <div className="collection-container">
         <div className="title">
@@ -71,7 +75,7 @@ const SideBar = () => {
           </div>
           <img src={arrowIcon} />
         </div>
-        {Favorites && <ListFiles files={Favorites} fileType={"document"} />}
+        <ListFiles fileType={"document"} />
       </div>
       <SignOut />
     </div>

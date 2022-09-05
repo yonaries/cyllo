@@ -7,6 +7,7 @@ import saveIcon from "../../assets/icons/Save.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../..";
 import { changeEditMode } from "../../controllers/redux/reducers/docSlice";
+import DeleteModal from "../../tailwind/delete-deactive-modal";
 
 type Props = {};
 
@@ -24,7 +25,7 @@ const DocViewButtons = (props: Props) => {
         <div className="dvBtn">
           <img src={shareIcon} />
         </div>
-        <div className="dvBtn">
+        <div className="dvBtn" >
           <img src={downloadIcon} />
         </div>
         <div className="dvBtn">

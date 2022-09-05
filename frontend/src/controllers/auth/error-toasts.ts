@@ -15,7 +15,7 @@ export function errorToast(errorCode: string) {
     }
     else if (errorCode === "auth/user-not-found") {
         Notify({
-            toastMessage: `No cyllo found with your email. signup and get one.`,
+            toastMessage: `No cyllo found with your email. signup to get one.`,
             toastType: "error",
         });
     }

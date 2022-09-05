@@ -1,8 +1,9 @@
 import FileTile from "./file-component";
 import "../css/file-list.css";
+import { useEffect, useState } from "react";
+import { getUserCollections } from "../../controllers/api/fetch-collections";
 
 interface Props {
-  files: any;
   fileType: any;
 }
 interface fileProps {
@@ -12,19 +13,21 @@ interface fileProps {
   fileType: string;
 }
 
-export const ListFiles = ({ files }: Props) => {
-  return files ? (
-    <div className="collections-list">
-      {files.map((file: fileProps) => (
-        <FileTile
-          key={file.fileId}
-          fileId={file.fileId}
-          color={file.color}
-          title={file.title}
-        />
-      ))}
-    </div>
-  ) : (
-    <div className="collections-list">console.log("nothing to show now")</div>
+export const ListFiles = ({ fileType }: Props) => {
+  const [files, setFiles] = useState<any>();
+
+  // useEffect(() => {
+  //   // getUserCollections().then((result) => {
+  //   //   setFiles(result)
+  //   // }).catch((err) => {
+  //   //   console.log(err);
+  //   // })
+  // }, [window.navigator.onLine])
+
+  // // console.log(files);
+
+
+  return (
+    <div className="no-file"><p>No {fileType}</p></div>
   );
 };

@@ -34,5 +34,14 @@
 .collections-list {
     padding: 0 2rem;
     overflow: scroll;
-    /* margin-top: 25px; */
+}
+
+.no-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    font-size: 15px;
+    color: rgb(170, 170, 170);
+    font-weight: 600;
 }

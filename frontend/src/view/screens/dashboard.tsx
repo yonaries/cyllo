@@ -1,18 +1,14 @@
+import { useSelector } from "react-redux";
 import "../css/dashboard.css";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { resetSelections } from "../../controllers/redux/reducers/selectionSlice";
-import AuthRoute from "../../controllers/authroute";
-
+import { RootState } from "../..";
 import ListDocuments from "../components/document-list";
-import ViewDocument from "./document-view";
 import SearchBar from "../components/search-bar";
 import SideBar from "../components/sidebar";
-import RecentlyScreen from "./recently";
-import DraftScreen from "./draft";
 import CommunityScreen from "./community";
-import { RootState } from "../..";
+import ViewDocument from "./document-view";
+import DraftScreen from "./draft";
+import RecentlyScreen from "./recently";
 
 const docsList = [
   {
@@ -64,7 +60,6 @@ const docsList = [
 type Props = {};
 
 const Dashboard = (props: Props) => {
-  const dispatch = useDispatch();
 
   const selectedView = useSelector(
     (state: RootState) => state.selectedElements.selectedView
@@ -89,9 +84,9 @@ const Dashboard = (props: Props) => {
         return <h1>No selectedView</h1>;
     }
   };
+
   return (
     <>
-      <AuthRoute />
       <div className="main-container">
         <SideBar />
         <div className="main-body-container">
