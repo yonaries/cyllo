@@ -1,8 +1,7 @@
-import { ICollection, Visibility } from './../model/files';
-import { generateId } from './../services/generateId';
-import { client, db, folderCollection, usersCollection } from './../database/database-config';
 import { Router } from 'express';
 import * as middleware from '../middleware/middleware';
+import { client, folderCollection } from './../database/database-config';
+import { generateId } from './../services/generateId';
 
 const router = Router();
 

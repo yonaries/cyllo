@@ -23,9 +23,9 @@ export type IDocument = {
     _collectionId: string;
     name: string;
     owner: Owner;
-    visibility: Visibility;
+    visibility: string;
     permittedTo: Permission;
-    docData: Object;
+    docData: any;
     progLang: string;
 }
 

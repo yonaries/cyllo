@@ -8,7 +8,9 @@ import { RootState } from "../..";
 import editIcon from "../../assets/icons/editIcon_black.svg";
 import saveIcon from "../../assets/icons/Save.svg";
 import deleteIcon from "../../assets/icons/Subtract.svg";
+import { useAuth } from "../../context/AuthContext";
 import { deleteCollection } from "../../controllers/api/delete-collection";
+import { updateCollections } from "../../controllers/api/update-collection";
 import {
   selectFile
 } from "../../controllers/redux/reducers/selectionSlice";
@@ -51,13 +53,6 @@ const FileTile = ({ fileId, color, title, index, setFiles }: Props) => {
         placeholder: "folder name",
       }),
     ],
-    editorProps: {
-      handleKeyDown(view, event) {
-        if (event.key === 'Enter') {
-          textBlock?.setEditable(false);
-        }
-      },
-    },
     autofocus: true,
     content: `<p>${title ? title : 'untitled'}</p>`,
   });
@@ -77,8 +72,15 @@ const FileTile = ({ fileId, color, title, index, setFiles }: Props) => {
   async function saveCollection() {
     textBlock?.setEditable(false);
     const json = textBlock?.getJSON()
+    const newName = json?.content![0].content![0].text;
 
-    console.log(json?.content![0].content![0].text);
+    try {
+      await updateCollections({ id: fileId, name: newName! })
+      Notify({ toastType: "success", toastMessage: 'Collection Renamed' })
+    } catch (error) {
+      console.log(error);
+      Notify({ toastType: 'error', toastMessage: 'Request Failed' })
+    }
   }
 
 

@@ -1,4 +1,3 @@
-import { UserCredential } from 'firebase/auth';
 import { ObjectId } from 'mongodb';
 
 export interface IUser {
