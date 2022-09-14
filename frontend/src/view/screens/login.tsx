@@ -1,46 +1,38 @@
-import { FormEvent, useEffect, useState } from "react";
-
-import googleLogo from "../../assets/logos/google.png";
-import emailIcon from "../../assets/icons/email.svg";
-import passwordIcon from "../../assets/icons/key.svg";
+import { FormEvent, useState } from "react";
 import "../css/login.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "../../";
-import { SignInWith } from "../../controllers/auth/signIn-with";
+import emailIcon from "../../assets/icons/email.svg";
+import passwordIcon from "../../assets/icons/key.svg";
+import githubLogo from "../../assets/logos/github.png";
+import googleLogo from "../../assets/logos/google.png";
+
 import Notify from "../components/toast-message";
+import { AuthProvider } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Github, Google } from "../../firebase/OAuth2-Providers";
 
-interface Props { }
+const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signInWithEmail, signInWithProvider } = useAuth();
 
-const LoginScreen = ({ }: Props) => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('');
-  const { currentUser } = useAuth();
-
-  if (currentUser) {
-    navigate('/dashboard', { replace: true });
-    Notify({
-      toastMessage: `Authenticated as ${currentUser.email}`
-    });
-  }
-
-  async function signinHandler(event: FormEvent, provider: string) {
+  async function signinHandler(
+    event: FormEvent,
+    provider: AuthProvider | string
+  ) {
     event.preventDefault();
-
     try {
-      let promise;
-      if (provider == 'google') promise = SignInWith.Google()
-      if (provider == 'cyllo') promise = SignInWith.Email(email, password)
+      const promise =
+        provider === "email"
+          ? signInWithEmail(email, password)
+          : signInWithProvider(provider);
 
       await Notify({
         toastMessage: "Authenticating...",
         toastType: "wait",
         waitingFor: promise,
       });
-
     } catch (error) {
       console.log(`At login page: ${error}`);
     }
@@ -49,32 +41,59 @@ const LoginScreen = ({ }: Props) => {
   return (
     <div className="main-container">
       <div className="login-panel">
-        <div className="signIn-with-others"></div>
-        <button className="signIn-google" onClick={(e) => signinHandler(e, 'google')}>
-          <img src={googleLogo} alt="sign in with google" />
-          Sign In with Google
-        </button>
+        <div className="signIn-with-others">
+          <button
+            className="signIn-google"
+            onClick={(e) => signinHandler(e, Github)}
+          >
+            <img src={githubLogo} alt="sign in with github" />
+            Sign In with GitHub
+          </button>
+          <button
+            className="signIn-google"
+            onClick={(e) => signinHandler(e, Google)}
+          >
+            <img src={googleLogo} alt="sign in with google" />
+            Sign In with Google
+          </button>
+        </div>
         <div className="divider">
           <hr />
           <div className="or">OR</div>
           <hr />
         </div>
-        <form onSubmit={(e) => signinHandler(e, 'cyllo')} >
+        <form onSubmit={(e) => signinHandler(e, "email")}>
           <div className="signIn-with-email">
             <div className="Inputs">
               <div className="input">
                 <img src={emailIcon} alt="" />
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" id="emailInput" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address"
+                  id="emailInput"
+                />
               </div>
               <div className="input">
                 <img src={passwordIcon} alt="" />
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" id="passwordInput" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  id="passwordInput"
+                />
               </div>
             </div>
           </div>
-          <button type="submit" className="signIn-btn">Login</button>
+          <button type="submit" className="signIn-btn">
+            Login
+          </button>
         </form>
-        <p>Don't have cyllo? <a href="/signup">Signup</a> </p>
+        <p>
+          Don't have cyllo? <a href="/signup">Signup</a>{" "}
+        </p>
       </div>
     </div>
   );

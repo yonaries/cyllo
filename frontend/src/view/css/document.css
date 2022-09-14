@@ -1,13 +1,8 @@
 .documents-list {
     flex: 1;
     overflow: scroll;
-    scrollbar-color: white;
-    scrollbar-width: none;
 }
 
-.documents-list::-webkit-scrollbar {
-    display: none;
-}
 
 .doc-container {
     display: flex;
@@ -32,17 +27,4 @@
     color: grey;
     font-size: 12px;
     font-weight: 400;
-}
-
-.filter {
-    display: flex;
-    align-items: center;
-    height: 30px;
-    margin-top: 1rem;
-    padding-left: 17px;
-    cursor: pointer;
-}
-
-.filter img {
-    padding-top: 2px;
 }

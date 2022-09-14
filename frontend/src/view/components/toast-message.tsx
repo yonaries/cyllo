@@ -8,17 +8,18 @@ interface Props {
   toastType?: string;
   waitingFor?: any;
   time?: number | false;
+  Icon?: false;
 }
 const errorId = "error-id-yes";
 const successId = "success-id-yes";
 const infoId = "info-id-yes";
 
-const Notify = ({ toastType, toastMessage, waitingFor, time }: Props) => {
+const Notify = ({ toastType, toastMessage, waitingFor, time, Icon }: Props) => {
   if (toastType === 'error') {
     return toast.error(toastMessage, {
       toastId: errorId,
       position: "top-right",
-      autoClose: false,
+      autoClose: 3000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -41,7 +42,7 @@ const Notify = ({ toastType, toastMessage, waitingFor, time }: Props) => {
   if (waitingFor) {
     return toast.promise(waitingFor, {
       pending: toastMessage,
-      error: 'Request Failed 🤯'
+      // error: 'Request Failed 🤯'
     }, {
       position: "top-right",
       autoClose: 1000,
@@ -62,7 +63,8 @@ const Notify = ({ toastType, toastMessage, waitingFor, time }: Props) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'colored'
+    theme: 'colored',
+    icon: !Icon && false,
   })
 }
 

@@ -25,6 +25,18 @@ export function errorToast(errorCode: string) {
             toastType: "error",
         });
     }
+    else if (errorCode === "auth/popup-closed-by-user") {
+        Notify({
+            toastMessage: `Authentication terminated by user.`,
+            toastType: "error",
+        });
+    }
+    else if (errorCode === "auth/network-request-failed") {
+        Notify({
+            toastMessage: `Network connection failed.`,
+            toastType: "error",
+        });
+    }
     else Notify({
         toastMessage: `Something went wrong! try again.`,
         toastType: "error",

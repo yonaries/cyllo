@@ -1,10 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "./App.css";
-import AuthProvider from "./context/AuthContext";
+import AuthProvider, { useAuth } from "./context/AuthContext";
 import Dashboard from "./view/screens/dashboard";
 import LoginScreen from "./view/screens/login";
 import SignupScreen from "./view/screens/signup";
@@ -13,7 +11,8 @@ import Welcome from "./view/screens/welcome";
 
 const App = () => {
   const [isOnline, setNetwork] = useState(window.navigator.onLine);
-  const toastId = React.useRef<any>(null);
+  const toastId = React.useRef<any>(null); // Notification ref
+  const { currentUser } = useAuth();
 
   //Notify Network is offline
   const NotifyNetwork = () =>
@@ -36,7 +35,7 @@ const App = () => {
     toast.update(toastId.current, {
       render: 'You are Back Online',
       type: toast.TYPE.SUCCESS,
-      autoClose: 5000,
+      autoClose: 2000,
       closeOnClick: true,
     });
   if (isOnline) UpdateNetwork();
@@ -55,17 +54,13 @@ const App = () => {
     };
   });
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
-  const [user, setUser] = useState<User>()
-
   return (
     <div className="App">
       <ToastContainer />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/signin" element={<LoginScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
         </Routes>

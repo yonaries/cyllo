@@ -7,48 +7,41 @@ import folderIcon from "../../assets/icons/Folder-user.svg";
 import devAvatar from "../../assets/icons/person.png";
 import "../css/dashboard.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { ListFiles } from "./files-list";
-import Views from "./view";
-import { RootState } from "../..";
-import { useEffect, useState } from "react";
-import { selectFile } from "../../controllers/redux/reducers/selectionSlice";
-import { createCollectionRequest } from "../../controllers/api/create-collection";
-import Notify from "./toast-message";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/AuthContext";
-import { User } from "firebase/auth";
+import { createCollectionRequest } from "../../controllers/api/create-collection";
+import { selectFile } from "../../controllers/redux/reducers/selectionSlice";
+import { CollectionsList } from "./collections-list";
+import { FavoritesList } from "./favorites-list";
+import Notify from "./toast-message";
+import Views from "./view";
+import { getUserCollections } from "../../controllers/api/fetch-collections";
 
 const SideBar = () => {
   const dispatch = useDispatch();
-  const [files, setFiles] = useState([
-    { fileId: "41sssd", title: "firebase", color: "orange" },
-    { fileId: "agha7a", title: "react", color: "blue" },
-    { fileId: "496aca", title: "flutter", color: "red" },
-    { fileId: "51avid", title: "nodejs", color: "green" },
-  ]);
+  const { currentUser, currentUserName } = useAuth();
 
-  const newCollection = { fileId: "03fyj5", title: "untitled", color: "orange" }
   async function addFolder() {
-
     try {
-      setFiles([...files, newCollection]); dispatch(selectFile(newCollection.fileId))
-      await createCollectionRequest('untitled');
-      Notify({ toastType: "success", toastMessage: 'New Collection Created' })
+      const result = await createCollectionRequest({ name: 'new', user: currentUser! });
+      dispatch(selectFile(result._id))
 
+      Notify({ toastType: "success", toastMessage: 'New Collection Created' })
+      await getUserCollections();
     } catch (error) {
+      console.log(error);
       Notify({ toastType: 'error', toastMessage: 'Collection Creation Failed' })
     }
   }
-  const { currentUser } = useAuth();
 
   return (
     <div className="side-bar">
       <div className="profile-bar">
         <div className="avatar">
-          <img src={devAvatar} />
+          <img src={currentUser?.photoURL ? currentUser?.photoURL : devAvatar} />
         </div>
         <div className="username-email">
-          <div className="name">{currentUser?.displayName}</div>
+          <div className="name">{currentUserName}</div>
           <div className="email">{currentUser?.email}</div>
         </div>
       </div>
@@ -65,7 +58,7 @@ const SideBar = () => {
             onClick={addFolder}
           />
         </div>
-        <ListFiles fileType={"collection"} />
+        <CollectionsList />
       </div>
       <div className="collection-container">
         <div className="title">
@@ -75,7 +68,7 @@ const SideBar = () => {
           </div>
           <img src={arrowIcon} />
         </div>
-        <ListFiles fileType={"document"} />
+        <FavoritesList />
       </div>
       <SignOut />
     </div>

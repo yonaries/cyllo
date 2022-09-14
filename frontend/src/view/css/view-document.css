@@ -2,8 +2,7 @@
     flex: 3;
     min-height: 100%;
     padding: 0 3rem;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .profile {

@@ -37,16 +37,6 @@ const SignupScreen = ({ }: Props) => {
     return (
         <div className="main-container">
             <div className="login-panel">
-                <div className="signIn-with-others"></div>
-                <button className="signIn-google" onClick={() => SignInWith.Google()}>
-                    <img src={googleLogo} alt="sign in with google" />
-                    Sign Up with Google
-                </button>
-                <div className="divider">
-                    <hr />
-                    <div className="or">OR</div>
-                    <hr />
-                </div>
                 <form onSubmit={(e) => submitHandler(e)} >
                     <div className="signIn-with-email">
                         <h2>Sign Up For Cyllo</h2>

@@ -1,9 +1,8 @@
 .collection {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     padding: 2px 5px;
-    margin: 5px 0;
+    margin: 5px 25px;
     border-radius: 3px;
     cursor: pointer;
     overflow-wrap: normal;
@@ -40,7 +39,8 @@
 
 .collection .ProseMirror p {
     margin: 0;
-    width: 100px;
+    /* width: 100px; */
+    flex: 2;
     text-overflow: ellipsis;
 }
 

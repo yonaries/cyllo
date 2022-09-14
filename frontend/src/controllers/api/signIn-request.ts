@@ -11,8 +11,6 @@ export async function authUserRequest(token: string, provider: string) {
                 provider: provider,
             },
         });
-        const serverToken = result.headers.token;
-        window.localStorage.setItem('x-auth-token', serverToken);
         return result.data;
     } catch (error) {
         throw new Error(`From server: ${error}`);

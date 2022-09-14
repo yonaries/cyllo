@@ -1,30 +1,29 @@
-import "../../view/css/login.css";
 import {
-    GoogleAuthProvider,
-    signInWithEmailAndPassword,
+    AuthProvider, signInWithEmailAndPassword,
     signInWithPopup
 } from "firebase/auth";
-import { auth } from './../../config/firebaseConfig';
-import { authUserRequest } from "../api/signIn-request";
-import { errorToast } from "./error-toasts";
 import Notify from "../../view/components/toast-message";
+import "../../view/css/login.css";
+import { authUserRequest } from "../api/signIn-request";
+import { auth } from './../../config/firebaseConfig';
+import { errorToast } from "./error-toasts";
 
 export class SignInWith {
     constructor() { }
 
-    public static async Google() {
+    public static async Provider(provider: AuthProvider) {
         try {
-            const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
             const token = await userCredential.user.getIdToken();
             const result = await authUserRequest(token, provider.providerId);
-            return result;
-        } catch (error) {
-            console.log(`Error: ${error}`);
             Notify({
-                toastMessage: `Something went wrong! try again.`,
-                toastType: "error",
+                toastMessage: `Authenticated as ${userCredential.user.email}`,
+                Icon: false,
             });
+            return result;
+        } catch (error: any) {
+            console.log(`Error: ${error}`);
+            errorToast(error.code)
         }
     }
 
@@ -37,6 +36,9 @@ export class SignInWith {
             );
             const token = await userCredential.user.getIdToken();
             const result = await authUserRequest(token, "cyllo");
+            Notify({
+                toastMessage: `Authenticated as ${userCredential.user.email}`
+            });
             return result;
         } catch (error: any) {
             console.log(error.code);

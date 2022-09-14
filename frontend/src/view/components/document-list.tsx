@@ -2,6 +2,7 @@ import React from "react";
 import "../css/document.css";
 import DocumentTile from "./document-tile";
 import arrowIcon from "../../assets/icons/Caret down.svg";
+import addIcon from "../../assets/icons/Plus.svg";
 
 interface Props {
   docsList: any;
@@ -24,9 +25,12 @@ const ListDocuments = ({ docsList }: Props) => {
   return docsList ? (
     <>
       <div className="documents-list">
-        <div className="filter">
-          <p>Filter</p>
-          <img src={arrowIcon} />
+        <div className="filter-add-container flex items-center px-4 sticky z-10 justify-between pt-2 top-0 bg-white h-10">
+          <div className="flex">
+            <p>Filter</p>
+            <img src={arrowIcon} />
+          </div>
+          <img src={addIcon} />
         </div>
         {docsList.map((doc: docType, key: any) => (
           <DocumentTile

@@ -1,43 +1,39 @@
+import { Extension } from "@tiptap/core";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../..";
-import { Extension } from "@tiptap/core";
-import {
-  selectFile
-} from "../../controllers/redux/reducers/selectionSlice";
-import "../css/file-component.css";
 import editIcon from "../../assets/icons/editIcon_black.svg";
 import saveIcon from "../../assets/icons/Save.svg";
 import deleteIcon from "../../assets/icons/Subtract.svg";
+import { deleteCollection } from "../../controllers/api/delete-collection";
+import {
+  selectFile
+} from "../../controllers/redux/reducers/selectionSlice";
 import DeleteModal from "../../tailwind/delete-deactive-modal";
+import "../css/file-component.css";
+import Notify from "./toast-message";
 
 
 type Props = {
-  files: [];
   fileId: string;
   color: string;
   title: string;
   index: number;
+  setFiles: React.Dispatch<any>;
 };
 
-const FileTile = ({ files, fileId, color, title, index }: Props) => {
+const FileTile = ({ fileId, color, title, index, setFiles }: Props) => {
   const [isDeleteOn, setIsDeleteOn] = useState<boolean>(false);
-  const [elem, setElem] = useState<HTMLElement>();
 
   const dispatch = useDispatch();
   const selectedFile = useSelector(
     (state: RootState) => state.selectedElements.selectedFile
   );
 
-  //set class name for selected file
-  function className(Id: string) {
-    return Id === selectedFile ? "collection selected" : "collection";
-  }
-
-  //? Text Editor
+  // Text Editor elements
   const DisableEnter = Extension.create({
     addKeyboardShortcuts() {
       return {
@@ -57,7 +53,6 @@ const FileTile = ({ files, fileId, color, title, index }: Props) => {
     ],
     editorProps: {
       handleKeyDown(view, event) {
-        console.log(event.key);
         if (event.key === 'Enter') {
           textBlock?.setEditable(false);
         }
@@ -67,37 +62,45 @@ const FileTile = ({ files, fileId, color, title, index }: Props) => {
     content: `<p>${title ? title : 'untitled'}</p>`,
   });
 
-  //select the element to be removed
-  function readyCollection(e: any) {
-    const coll = e.target.parentElement.parentElement;
-    setElem(coll);
-    setIsDeleteOn(true);
+  async function deleteFile() {
+    try {
+      await deleteCollection(fileId)
+      setFiles((prev: any) => { prev.splice(index, 1); return [...prev] });
+      Notify({ toastType: "success", toastMessage: 'Collection Deleted' })
+    } catch (error) {
+      console.log(error);
+      Notify({ toastType: 'error', toastMessage: 'Request Failed' })
+    }
   }
 
-  //delete the selected element
-  function deleteCollection() {
-    files.splice(index, 1);
-    console.log(files);
-    elem?.remove()
+  //save renamed collection
+  async function saveCollection() {
+    textBlock?.setEditable(false);
+    const json = textBlock?.getJSON()
+
+    console.log(json?.content![0].content![0].text);
   }
+
 
   return (
     <div onBlur={() => textBlock?.setEditable(false)} >
-      {isDeleteOn && <DeleteModal onDelete={deleteCollection} setIsDeleteOn={setIsDeleteOn} />}
+      {isDeleteOn && <DeleteModal onDelete={deleteFile} setIsDeleteOn={setIsDeleteOn} />}
       <div
-        className={className(fileId)}
+        className={fileId === selectedFile ? "collection selected" : "collection"}
         onClick={() => {
           dispatch(selectFile(fileId));
         }}
       >
-        <div className="indicator" style={{ backgroundColor: color }}></div>
-        <EditorContent editor={textBlock} />
+        <div className="flex items-center flex-1">
+          <div className="indicator mr-2" style={{ backgroundColor: color }}></div>
+          <EditorContent editor={textBlock} />
+        </div>
         <div className="action-buttons">
-          <div className="colMenuBtn" onClick={() => textBlock?.setEditable(!textBlock.isEditable)} >
-            {textBlock?.isEditable ? <img src={saveIcon} />
-              : <img src={editIcon} />}
+          <div className="colMenuBtn" >
+            {textBlock?.isEditable ? <img src={saveIcon} onClick={saveCollection} />
+              : <img src={editIcon} onClick={() => textBlock?.setEditable(true)} />}
           </div>
-          <img className="colMenuBtn" src={deleteIcon} onClick={readyCollection} />
+          <img className="colMenuBtn" src={deleteIcon} onClick={() => setIsDeleteOn(true)} />
         </div>
       </div>
     </div>

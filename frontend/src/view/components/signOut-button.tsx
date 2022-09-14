@@ -1,17 +1,13 @@
 import { useDispatch } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
-import { signedOut } from "../../controllers/redux/reducers/authSlice";
 
 
 const SignOut: React.FC = () => {
-  const dispatch = useDispatch();
 
   async function signOut() {
     try {
-      await auth.signOut().then((result) => {
-        dispatch(signedOut());
-        console.log(result);
-      });
+      await auth.signOut()
+      window.localStorage.removeItem('displayName');
     } catch (err) {
       console.log(err);
     }
