@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 import Notify from "../../view/components/toast-message";
 import { signUpRequest } from "../api/signup-request";

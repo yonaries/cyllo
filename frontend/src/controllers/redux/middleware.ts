@@ -1,4 +1,4 @@
-//MIDDLEWARE
+//MIDDLEWARE to save to local storage
 export const saveToLocalStorageMiddleware = ({ getState }: any) => {
   return (next: any) => (action: any) => {
     const result = next(action);

@@ -3,7 +3,6 @@ import { ObjectId } from 'mongodb';
 export interface IUser {
     _id: ObjectId,
     displayName: string,
-    password: string,
     email: string,
     emailVerified: boolean,
     picture: string

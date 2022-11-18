@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../..";
-import { getUserCollections } from "../../controllers/api/fetch-collections";
+import { RootState } from "../../..";
+import { getUserCollections } from "../../../controllers/api/fetch-collections";
 import "../css/file-list.css";
 import FileTile from "./file-component";
 

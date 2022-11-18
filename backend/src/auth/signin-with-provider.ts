@@ -1,9 +1,8 @@
 import { client, usersCollection } from "../database/database-config";
 import { IUser } from "../model/user";
-const bcrypt = require('bcrypt')
 
 
-export const signInWithProvider = async (user: IUser) => {
+export const signIn = async (user: IUser) => {
     await client.connect();
 
     const userExist = await usersCollection.findOne({ email: user.email });
@@ -25,6 +24,7 @@ export const signInWithProvider = async (user: IUser) => {
             throw new Error(`${ex}`)
         }
     }
+
     const response = {
         data: {
             displayName: userExist.displayName,
@@ -33,5 +33,7 @@ export const signInWithProvider = async (user: IUser) => {
             picture: userExist.picture
         }
     }
+
+
     return response;
 }

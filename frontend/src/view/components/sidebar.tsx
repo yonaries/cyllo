@@ -10,12 +10,12 @@ import "../css/dashboard.css";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/AuthContext";
 import { createCollectionRequest } from "../../controllers/api/create-collection";
+import { getUserCollections } from "../../controllers/api/fetch-collections";
 import { selectFile } from "../../controllers/redux/reducers/selectionSlice";
-import { CollectionsList } from "./collections-list";
-import { FavoritesList } from "./favorites-list";
+import { CollectionsList } from "./collections/collections-list";
+import { FavoritesList } from "./collections/favorites-list";
 import Notify from "./toast-message";
 import Views from "./view";
-import { getUserCollections } from "../../controllers/api/fetch-collections";
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -28,23 +28,14 @@ const SideBar = () => {
 
       Notify({ toastType: "success", toastMessage: 'New Collection Created' })
       await getUserCollections();
+
     } catch (error) {
-      console.log(error);
       Notify({ toastType: 'error', toastMessage: 'Collection Creation Failed' })
     }
   }
 
   return (
     <div className="side-bar">
-      <div className="profile-bar">
-        <div className="avatar">
-          <img src={currentUser?.photoURL ? currentUser?.photoURL : devAvatar} />
-        </div>
-        <div className="username-email">
-          <div className="name">{currentUserName}</div>
-          <div className="email">{currentUser?.email}</div>
-        </div>
-      </div>
       <Views />
       <div className="collection-container">
         <div className="title">

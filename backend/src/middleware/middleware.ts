@@ -1,12 +1,14 @@
+import { IUser } from './../model/user';
 import firebaseAdmin from "../firebase/firebaseConfig";
 
 async function decodeFirebaseToken(req: any, res: any, next: any) {
     const token = req.headers.authorization;
+
     try {
         const decodedToken = await firebaseAdmin.auth().verifyIdToken(token)
         if (!decodedToken) throw new Error('Firebase: Unauthorize')
 
-        const user = {
+        const user: IUser = {
             _id: decodedToken.uid,
             displayName: decodedToken.name,
             email: decodedToken.email,

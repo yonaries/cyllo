@@ -34,6 +34,7 @@ const AuthProvider = ({ children }: any) => {
         setCurrentUserName(result.displayName)
         window.localStorage.setItem('displayName', result.displayName);
     }
+
     async function signInWithEmail(email: string, password: string) {
         const result = await SignInWith.Email(email, password)
         setCurrentUserName(result.displayName)

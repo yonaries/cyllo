@@ -5,9 +5,9 @@ import shareIcon from "../../assets/icons/Share-box.svg";
 import menuIcon from "../../assets/icons/menu.svg";
 import saveIcon from "../../assets/icons/Save.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../..";
-import { changeEditMode } from "../../controllers/redux/reducers/docSlice";
-import DeleteModal from "../../tailwind/delete-deactive-modal";
+import { RootState } from "../../..";
+import { changeEditMode } from "../../../controllers/redux/reducers/docSlice";
+import DeleteModal from "../../../tailwind/delete-deactive-modal";
 
 type Props = {};
 

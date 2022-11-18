@@ -7,6 +7,7 @@ const router = Router();
 
 router.post('/create', middleware.decodeToken, async (req, res) => {
     await client.connect();
+
     try {
         const collection = {
             _id: generateId('collection'),
@@ -18,13 +19,12 @@ router.post('/create', middleware.decodeToken, async (req, res) => {
                 group: []
             }
         }
+
         await folderCollection.insertOne(collection)
         await client.close();
-
         return res.status(200).send(collection)
-    } catch (error) {
-        console.log(error);
 
+    } catch (error) {
         return res.status(400).send(error)
     }
 })
@@ -59,10 +59,9 @@ router.delete('/:id', middleware.decodeToken, async (req, res) => {
         const result = await folderCollection.findOneAndDelete({ owner: req.body.user._id, _id: req.params.id })
         await client.close();
 
-        console.log(result);
         return res.status(200).send(result)
     } catch (error) {
-        console.log(error);
+
         return res.status(400).send(error)
     }
 })

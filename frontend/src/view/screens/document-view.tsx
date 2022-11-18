@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../..";
 import devUser from "../../assets/icons/devuser.png";
-import DocViewButtons from "../components/doc-view-buttons";
+import DocViewButtons from "../components/document/doc-view-buttons";
 import EditablePage from "../components/text-editor/editable-page";
 import "../css/view-document.css";
 
